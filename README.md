@@ -71,3 +71,46 @@ Secret cần khai báo trong Settings → Secrets and variables → Actions:
 | `VM_SSH_KEY` | private key dành riêng cho GitHub Actions |
 
 `.env` và `secrets/gcp-sa.json` không bao giờ lên GitHub, tạo tay trên VM một lần.
+
+## Module mới: `plugins/string_utils.py`
+
+Module chứa các hàm tiện ích xử lý chuỗi.
+
+### Function chính: `count_substring(string, sub_string)`
+
+Đếm số lần chuỗi con `sub_string` xuất hiện trong chuỗi `string`, **có tính cả các lần xuất hiện chồng lên nhau**.
+
+**Input**
+
+| Tham số | Kiểu | Mô tả |
+|---|---|---|
+| `string` | `str` | Chuỗi gốc cần tìm |
+| `sub_string` | `str` | Chuỗi con cần đếm |
+
+**Output**
+
+- `int`: số lần `sub_string` xuất hiện trong `string`.
+
+**Ví dụ**
+
+| `string` | `sub_string` | Kết quả |
+|---|---|---|
+| `"ABCDCDC"` | `"CDC"` | `2` |
+| `"AAAA"` | `"AA"` | `3` |
+| `"HELLO"` | `"XYZ"` | `0` |
+
+> Lưu ý: khác với `str.count()` có sẵn của Python. `"ABCDCDC".count("CDC")` chỉ trả về `1` vì không đếm phần chồng lấn.
+
+### Cách chạy / test nhanh
+
+Từ thư mục gốc của project:
+
+```bash
+python3 plugins/string_utils.py
+```
+
+Kết quả mong đợi:
+
+```
+2
+```
